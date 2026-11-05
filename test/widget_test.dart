@@ -15,7 +15,7 @@ void main() {
     expect(controller.counter.value, 0);
 
     // Tap the increment button
-    await tester.tap(find.byIcon(Icons.add));
+    await tester.tap(find.text('Increment'));
     await tester.pump();
 
     expect(controller.counter.value, 1);
