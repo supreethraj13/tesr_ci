@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 import 'package:get_x_demo/homecontoller.dart';
@@ -15,7 +14,7 @@ void main() {
     expect(controller.counter.value, 0);
 
     // Tap the increment button
-    await tester.tap(find.byIcon(Icons.add));
+    await tester.tap(find.text('Increment'));
     await tester.pump();
 
     expect(controller.counter.value, 1);
