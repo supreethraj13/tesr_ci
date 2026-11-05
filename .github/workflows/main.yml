@@ -1,0 +1,49 @@
+
+name: Flutter CI
+
+on:
+  push:
+    branches: [main, develop]
+
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Get source code
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      # 2. Install Flutter
+      - name: Setup Flutter
+        uses: flutter-actions/setup-flutter@v4
+        with:
+          channel: stable
+          version: latest
+
+      # 3. Install dependencies
+      - name: Get dependencies
+        run: flutter pub get
+
+      # 4. Check code quality
+      - name: Analyze code
+        run: flutter analyze
+
+      # 5. Run unit and widget tests
+      - name: Run tests
+        run: flutter test
+
+      # 6. Build Android APK
+      - name: Build APK
+        run: flutter build apk --release
+
+      # 7. Upload APK
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: flutter-release-apk
+          path: build/app/outputs/flutter-apk/app-release.apk
+          retention-days: 7
